@@ -1,15 +1,18 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import Navbar from "./components/NavSticky";
-import Footer from "./components/Footer";
+import Navbar from "./partials/NavSticky";
+import Footer from "./partials/Footer";
 import Container from "react-bootstrap/Container";
+import AllCampgrounds from "./components/AllCampgrounds";
 
 function App() {
 	return (
 		<div className="App">
 			<Navbar />
-			<Container></Container>
+			<Container>
+				<AllCampgrounds />
+			</Container>
 			<Footer />
 		</div>
 	);

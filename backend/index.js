@@ -7,7 +7,7 @@ const app = express();
 const PORT = 4000;
 const router = express.Router();
 
-// app.use(cors());
+app.use(cors());
 app.use("/", router);
 
 mongoose.connect(
