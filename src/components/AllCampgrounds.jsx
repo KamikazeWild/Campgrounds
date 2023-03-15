@@ -1,16 +1,27 @@
-// import { MongoClient } from "mongodb";
+import { useEffect, useState } from "react";
+import Campground from "./Campground";
 
 const AllCampgrounds = () => {
+	const [campgrounds, setCampgrounds] = useState([]);
 	const getCampgrounds = async () => {
 		const res = await fetch("http://localhost:4000/getData");
-		const data = await res.json();
-		console.log(data);
+		const campgrounds = await res.json();
+		setCampgrounds(campgrounds);
+		// console.log(campgrounds);
 	};
+
+	useEffect(() => {
+		getCampgrounds();
+	});
 
 	return (
 		<div>
-			<h1>All Campgrounds</h1>
-			<button onClick={getCampgrounds}>Get 'em tiger</button>
+			<p className="fs-1 fw-bolder">All Campgrounds</p>
+			<button className="mb-3">Create New Campground</button>
+
+			{campgrounds.map((camp) => {
+				return <Campground camp={camp} key={camp._id} />;
+			})}
 		</div>
 	);
 };
