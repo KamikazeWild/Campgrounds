@@ -3,6 +3,7 @@ import Campground from "./Campground";
 
 const AllCampgrounds = () => {
 	const [campgrounds, setCampgrounds] = useState([]);
+
 	const getCampgrounds = async () => {
 		const res = await fetch("http://localhost:4000/getData");
 		const campgrounds = await res.json();
@@ -12,7 +13,7 @@ const AllCampgrounds = () => {
 
 	useEffect(() => {
 		getCampgrounds();
-	});
+	}, []);
 
 	return (
 		<div>
