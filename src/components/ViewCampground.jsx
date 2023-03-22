@@ -6,21 +6,29 @@ mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
 const ViewCampground = () => {
 	const [camp, setCamp] = useState({});
+	const [mapObject, setMapObject] = useState();
 	const { id } = useParams();
 	// console.log(id)
 
 	// For MapBox
 	const mapContainer = useRef(null);
 	const map = useRef(null);
-	const [lng, setLng] = useState(-70.9);
-	const [lat, setLat] = useState(42.35);
+	const [lat, lng] = camp?.geometry?.coordinates || [-75, 42];
 	const [zoom, setZoom] = useState(9);
 
 	const getCampground = async () => {
 		const res = await fetch(`http://localhost:4000/campgrounds/${id}`);
 		const data = await res.json();
 		setCamp(data);
+		// console.log({ data });
 		// console.log(camp);
+	};
+
+	const setMapCenter = (coords) => {
+		if (mapObject) {
+			console.log(mapObject.setCenter);
+			mapObject.setCenter(coords);
+		}
 	};
 
 	useEffect(() => {
@@ -36,7 +44,12 @@ const ViewCampground = () => {
 			center: [lng, lat],
 			zoom: zoom,
 		});
+		setMapObject(map.current);
 	}, []);
+
+	useEffect(() => {
+		setMapCenter([lat, lng]);
+	}, [lat, lng]);
 
 	return (
 		<div className="container mt-3">
