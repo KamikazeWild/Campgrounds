@@ -18,7 +18,7 @@ const AllCampgrounds = () => {
 	return (
 		<div>
 			<p className="fs-1 fw-bolder">All Campgrounds</p>
-			<button className="mb-3">Create New Campground</button>
+			<button className=" btn btn-dark mb-3">Create New Campground</button>
 
 			{campgrounds.map((camp) => {
 				return <Campground camp={camp} key={camp._id} />;

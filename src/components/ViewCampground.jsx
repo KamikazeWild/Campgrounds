@@ -2,7 +2,6 @@ import { useRef, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
-// console.log(import.meta.env.VITE_MAPBOX_TOKEN);
 
 const ViewCampground = () => {
 	const [camp, setCamp] = useState({});
@@ -21,7 +20,6 @@ const ViewCampground = () => {
 		const data = await res.json();
 		setCamp(data);
 		// console.log({ data });
-		// console.log(camp);
 	};
 
 	const setMapCenter = (coords) => {
@@ -56,12 +54,6 @@ const ViewCampground = () => {
 			<div className="row">
 				<div className="col-6">
 					<div className="card mb-5">
-						{/* <img
-							src="https://res.cloudinary.com/dw6xfylwa/image/upload/v1653005047/YelpCamp/no-image_gauquf.jpg"
-							className="card-img-top"
-							alt="..."
-						/> */}
-
 						<div
 							id="carouselExampleControls"
 							className="carousel slide"

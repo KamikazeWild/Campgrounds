@@ -9,6 +9,7 @@ const app = express();
 const PORT = 4000;
 const router = express.Router();
 
+app.use(express.json());
 app.use(cors());
 app.use("/", router);
 
@@ -29,6 +30,27 @@ app.get("/getData", async function (req, res) {
 router.get("/campgrounds/:id", async function (req, res) {
 	let campground = await Campground.findById(req.params.id);
 	res.send(campground);
+});
+
+router.post("/campgrounds", async function (req, res) {
+	const { title, location, price, description } = req.body;
+	const camp = new Campground({
+		title,
+		location,
+		price,
+		description,
+	});
+
+	camp
+		.save()
+		.then(() => {
+			res.status(201).json({ message: `Capground created successfully` });
+		})
+		.catch((err) => {
+			res.json({ message: err });
+		});
+
+	res.redirect("http://localhost:5173/campgrounds");
 });
 
 app.listen(PORT, function () {
