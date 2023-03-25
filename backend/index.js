@@ -38,13 +38,21 @@ router.post("/campgrounds", async function (req, res) {
 	// if (!title || !location || !price || !description) {
 	// 	res.status(422).json({ message: "Please fill all the fields in the form" });
 	// }
+
 	try {
+		// Fetch location coordinates from MapBox
+		const mbxGeocode = await fetch(
+			`https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${process.env.VITE_MAPBOX_TOKEN}`
+		);
+		const geoData = await mbxGeocode.json();
+
 		const camp = new Campground({
 			title,
 			location,
 			price,
 			description,
 		});
+		camp.geometry = geoData.features[0].geometry;
 
 		await camp.save();
 		res
