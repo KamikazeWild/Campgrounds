@@ -34,23 +34,26 @@ router.get("/campgrounds/:id", async function (req, res) {
 
 router.post("/campgrounds", async function (req, res) {
 	const { title, location, price, description } = req.body;
-	const camp = new Campground({
-		title,
-		location,
-		price,
-		description,
-	});
 
-	camp
-		.save()
-		.then(() => {
-			res.status(201).json({ message: `Capground created successfully` });
-		})
-		.catch((err) => {
-			res.json({ message: err });
+	// if (!title || !location || !price || !description) {
+	// 	res.status(422).json({ message: "Please fill all the fields in the form" });
+	// }
+	try {
+		const camp = new Campground({
+			title,
+			location,
+			price,
+			description,
 		});
 
-	res.redirect("http://localhost:5173/campgrounds");
+		await camp.save();
+		res
+			.status(201)
+			.json({ message: `Capground created successfully`, id: camp._id });
+	} catch (err) {
+		res.status(422).json({ message: err });
+		console.log(err);
+	}
 });
 
 app.listen(PORT, function () {

@@ -24,7 +24,7 @@ const ViewCampground = () => {
 
 	const setMapCenter = (coords) => {
 		if (mapObject) {
-			console.log(mapObject.setCenter);
+			// console.log(mapObject.setCenter);
 			mapObject.setCenter(coords);
 		}
 	};
