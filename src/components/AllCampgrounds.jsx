@@ -5,7 +5,7 @@ const AllCampgrounds = () => {
 	const [campgrounds, setCampgrounds] = useState([]);
 
 	const getCampgrounds = async () => {
-		const res = await fetch("http://localhost:4000/getData");
+		const res = await fetch("http://localhost:4000/campgrounds");
 		const campgrounds = await res.json();
 		setCampgrounds(campgrounds);
 		// console.log(campgrounds);

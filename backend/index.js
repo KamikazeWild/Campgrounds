@@ -3,7 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Campground = require("./models/campgrounds");
+const campgroundRoutes = require("./routes/campgroundRoutes");
 
 const app = express();
 const PORT = 4000;
@@ -13,6 +13,7 @@ app.use(express.json());
 app.use(cors());
 app.use("/", router);
 
+// connect to mongodb atlas
 mongoose.connect(process.env.DB_URL, {
 	useNewUrlParser: true,
 });
@@ -21,48 +22,8 @@ connection.once("open", function () {
 	console.log("Connection with MongoDB Atlas successful");
 });
 
-app.get("/getData", async function (req, res) {
-	let campgrounds = await Campground.find({});
-	res.send(campgrounds);
-	// console.log(campgrounds);
-});
-
-router.get("/campgrounds/:id", async function (req, res) {
-	let campground = await Campground.findById(req.params.id);
-	res.send(campground);
-});
-
-router.post("/campgrounds", async function (req, res) {
-	const { title, location, price, description } = req.body;
-
-	// if (!title || !location || !price || !description) {
-	// 	res.status(422).json({ message: "Please fill all the fields in the form" });
-	// }
-
-	try {
-		// Fetch location coordinates from MapBox
-		const mbxGeocode = await fetch(
-			`https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${process.env.VITE_MAPBOX_TOKEN}`
-		);
-		const geoData = await mbxGeocode.json();
-
-		const camp = new Campground({
-			title,
-			location,
-			price,
-			description,
-		});
-		camp.geometry = geoData.features[0].geometry;
-
-		await camp.save();
-		res
-			.status(201)
-			.json({ message: `Capground created successfully`, id: camp._id });
-	} catch (err) {
-		res.status(422).json({ message: err });
-		console.log(err);
-	}
-});
+// routes
+app.use("/campgrounds", campgroundRoutes);
 
 app.listen(PORT, function () {
 	console.log("App listening on port " + PORT);
