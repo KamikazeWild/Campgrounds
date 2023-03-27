@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
@@ -8,6 +8,7 @@ const ViewCampground = () => {
 	const [mapObject, setMapObject] = useState();
 	const { id } = useParams();
 	// console.log(id)
+	const navigate = useNavigate();
 
 	// For MapBox
 	const mapContainer = useRef(null);
@@ -20,6 +21,21 @@ const ViewCampground = () => {
 		const data = await res.json();
 		setCamp(data);
 		// console.log({ data });
+	};
+
+	const deleteCampground = async (e) => {
+		e.preventDefault();
+
+		const res = await fetch(`http://localhost:4000/campgrounds/${id}/`, {
+			method: "DELETE",
+		});
+
+		if (res.status === 422) {
+			window.alert("Something went wrong. Try again.");
+		} else {
+			window.alert("Campground deleted successfully");
+			navigate("/campgrounds");
+		}
 	};
 
 	const setMapCenter = (coords) => {
@@ -111,12 +127,22 @@ const ViewCampground = () => {
 							<li className="list-group-item">Price: ${camp.price}</li>
 						</ul>
 						<div className="card-body">
-							<a href="#edit" className="btn btn-primary">
-								Edit Campground
-							</a>
-							<a href="#delete" className="btn btn-danger mx-3">
-								Delete Campground
-							</a>
+							<div className="d-inline-block">
+								<a href="#edit" className="btn btn-primary">
+									Edit Campground
+								</a>
+							</div>
+							<div className="d-inline-block">
+								<form method="POST">
+									<a
+										href="#delete"
+										className="btn btn-danger mx-3"
+										onClick={(e) => deleteCampground(e)}
+									>
+										Delete Campground
+									</a>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>

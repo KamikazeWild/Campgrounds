@@ -36,7 +36,17 @@ module.exports.createCampground = async function (req, res) {
 		await camp.save();
 		res
 			.status(201)
-			.json({ message: `Capground created successfully`, id: camp._id });
+			.json({ message: "Capground created successfully", id: camp._id });
+	} catch (err) {
+		res.status(422).json({ message: err });
+		console.log(err);
+	}
+};
+
+module.exports.deleteCampground = async function (req, res) {
+	try {
+		await Campground.findByIdAndDelete(req.params.id);
+		res.status(201).json({ message: "Campground deleted successfully" });
 	} catch (err) {
 		res.status(422).json({ message: err });
 		console.log(err);

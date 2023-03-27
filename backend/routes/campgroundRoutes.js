@@ -8,5 +8,6 @@ const router = express.Router();
 router.get("/", catchAsync(campgrounds.index));
 router.get("/:id", catchAsync(campgrounds.viewCampground));
 router.post("/", catchAsync(campgrounds.createCampground));
+router.delete("/:id", catchAsync(campgrounds.deleteCampground));
 
 module.exports = router;
