@@ -6,10 +6,10 @@ import Container from "react-bootstrap/Container";
 
 import Navbar from "./partials/NavSticky";
 import Footer from "./partials/Footer";
-import AllCampgrounds from "./components/AllCampgrounds";
-import ViewCampground from "./components/ViewCampground";
-import NewCampground from "./components/NewCampground";
-import EditCampground from "./components/EditCampground";
+import AllCampgrounds from "./components/campgrounds/AllCampgrounds";
+import ViewCampground from "./components/campgrounds/ViewCampground";
+import NewCampground from "./components/campgrounds/NewCampground";
+import EditCampground from "./components/campgrounds/EditCampground";
 
 function App() {
 	return (
