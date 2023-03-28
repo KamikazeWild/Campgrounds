@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
-import Navbar from "./partials/NavSticky";
-import Footer from "./partials/Footer";
+import Navbar from "./components/partials/NavSticky";
+import Footer from "./components/partials/Footer";
 import AllCampgrounds from "./components/campgrounds/AllCampgrounds";
 import ViewCampground from "./components/campgrounds/ViewCampground";
 import NewCampground from "./components/campgrounds/NewCampground";
