@@ -1,19 +1,46 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const EditCampground = () => {
 	const { id } = useParams();
 	const [campData, setCampData] = useState();
+	const navigate = useNavigate();
 
 	const getCampground = async () => {
 		const res = await fetch(`http://localhost:4000/campgrounds/${id}`);
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 		setCampData(data);
 	};
 
 	const handleInputs = (e) => {
 		setCampData({ ...campData, [e.target.name]: e.target.value });
+	};
+
+	const patchData = async (e) => {
+		e.preventDefault();
+
+		const { title, description, location, price } = campData;
+		const res = await fetch(`http://localhost:4000/campgrounds/${id}/edit`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				title,
+				description,
+				location,
+				price,
+			}),
+		});
+
+		const data = await res.json();
+		if (data.status === 422) {
+			window.alert("Something went wrong. Try again.");
+		} else {
+			window.alert("Campground updated successfully");
+			navigate(`/campgrounds/${data.id}`);
+		}
 	};
 
 	useEffect(() => {
@@ -99,8 +126,10 @@ const EditCampground = () => {
 						</div>
 					</div>
 
-					<button className="btn btn-primary">Update campground</button>
-					<a className="btn btn-danger ms-3" href="/campgrounds">
+					<button className="btn btn-primary" onClick={(e) => patchData(e)}>
+						Update campground
+					</button>
+					<a className="btn btn-danger ms-3" href={`/campgrounds/${id}`}>
 						Cancel
 					</a>
 				</form>
