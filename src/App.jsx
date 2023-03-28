@@ -10,6 +10,7 @@ import AllCampgrounds from "./components/campgrounds/AllCampgrounds";
 import ViewCampground from "./components/campgrounds/ViewCampground";
 import NewCampground from "./components/campgrounds/NewCampground";
 import EditCampground from "./components/campgrounds/EditCampground";
+import Register from "./components/users/Register";
 
 function App() {
 	return (
@@ -18,10 +19,14 @@ function App() {
 			<Container>
 				<BrowserRouter>
 					<Routes>
+						{/* Campgrounds */}
 						<Route path="/campgrounds" element={<AllCampgrounds />} />
 						<Route path="/campgrounds/:id" element={<ViewCampground />} />
 						<Route path="/new" element={<NewCampground />} />
 						<Route path="/campgrounds/:id/edit" element={<EditCampground />} />
+
+						{/* Users */}
+						<Route path="/register" element={<Register />} />
 					</Routes>
 				</BrowserRouter>
 			</Container>

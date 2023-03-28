@@ -11,6 +11,8 @@ module.exports.register = async (req, res) => {
 			.status(201)
 			.json({ message: "User successfully registered and logged in." });
 	} catch (e) {
-		res.status(422).json({ message: `ERROR: ${e}. Please try again` });
+		res
+			.status(422)
+			.json({ message: `ERROR: ${e}. Please try again`, error: e });
 	}
 };
