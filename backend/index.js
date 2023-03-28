@@ -3,15 +3,25 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const campgroundRoutes = require("./routes/campgroundRoutes");
 
 const app = express();
 const PORT = 4000;
-const router = express.Router();
+
+const campgroundRoutes = require("./routes/campgroundRoutes");
+const userRoutes = require("./routes/userRoutes");
+
+// passport
+const User = require("./models/users");
+const passport = require("passport");
 
 app.use(express.json());
-app.use(cors());
-app.use("/", router);
+app.use(cors()); // allow cross origin resource sharing between frontend and backend
+app.use(passport.initialize());
+
+// configure passport
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // connect to mongodb atlas
 mongoose.connect(process.env.DB_URL, {
@@ -24,6 +34,7 @@ connection.once("open", function () {
 
 // routes
 app.use("/campgrounds", campgroundRoutes);
+app.use("/", userRoutes);
 
 app.listen(PORT, function () {
 	console.log("App listening on port " + PORT);

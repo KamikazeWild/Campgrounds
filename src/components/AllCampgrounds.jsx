@@ -18,7 +18,9 @@ const AllCampgrounds = () => {
 	return (
 		<div>
 			<p className="fs-1 fw-bolder">All Campgrounds</p>
-			<button className=" btn btn-dark mb-3">Create New Campground</button>
+			<a className=" btn btn-dark mb-3" href="/new">
+				Create New Campground
+			</a>
 
 			{campgrounds.map((camp) => {
 				return <Campground camp={camp} key={camp._id} />;
