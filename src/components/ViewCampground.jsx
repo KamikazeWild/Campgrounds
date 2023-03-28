@@ -128,7 +128,7 @@ const ViewCampground = () => {
 						</ul>
 						<div className="card-body">
 							<div className="d-inline-block">
-								<a href="#edit" className="btn btn-primary">
+								<a href={`${camp._id}/edit`} className="btn btn-primary">
 									Edit Campground
 								</a>
 							</div>

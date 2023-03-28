@@ -2,13 +2,14 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Container from "react-bootstrap/Container";
 
 import Navbar from "./partials/NavSticky";
 import Footer from "./partials/Footer";
-import Container from "react-bootstrap/Container";
 import AllCampgrounds from "./components/AllCampgrounds";
 import ViewCampground from "./components/ViewCampground";
 import NewCampground from "./components/NewCampground";
+import EditCampground from "./components/EditCampground";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 						<Route path="/campgrounds" element={<AllCampgrounds />} />
 						<Route path="/campgrounds/:id" element={<ViewCampground />} />
 						<Route path="/new" element={<NewCampground />} />
+						<Route path="/campgrounds/:id/edit" element={<EditCampground />} />
 					</Routes>
 				</BrowserRouter>
 			</Container>

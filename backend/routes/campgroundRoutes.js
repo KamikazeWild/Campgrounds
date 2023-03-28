@@ -5,9 +5,9 @@ const catchAsync = require("../utils/catchAsync");
 
 const router = express.Router();
 
-router.get("/", catchAsync(campgrounds.index));
-router.get("/:id", catchAsync(campgrounds.viewCampground));
-router.post("/", catchAsync(campgrounds.createCampground));
-router.delete("/:id", catchAsync(campgrounds.deleteCampground));
+router.get("/", catchAsync(campgrounds.index)); // get all campgrounds
+router.get("/:id", catchAsync(campgrounds.viewCampground)); // view particular campground
+router.post("/", catchAsync(campgrounds.createCampground)); // create new campground
+router.delete("/:id", catchAsync(campgrounds.deleteCampground)); // delete campground
 
 module.exports = router;
