@@ -5,9 +5,10 @@ const Register = () => {
 	const navigate = useNavigate();
 
 	const [userData, setUserData] = useState({
+		name: "",
 		username: "",
 		email: "",
-		password: "", // How to store password in state safely? Should not be visible in react devtools.
+		password: "",
 	});
 
 	function handleInput(e) {
@@ -17,18 +18,12 @@ const Register = () => {
 	async function postData(e) {
 		e.preventDefault();
 
-		const { username, email, password } = userData;
-
 		const res = await fetch("http://localhost:4000/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({
-				username,
-				email,
-				password,
-			}),
+			body: JSON.stringify(userData),
 		});
 		const data = await res.json();
 
@@ -56,6 +51,23 @@ const Register = () => {
 								<form method="POST" className="validate-form" noValidate>
 									<div className="mb-3">
 										<label className="form-label" htmlFor="username">
+											Name
+										</label>
+										<input
+											className="form-control"
+											type="text"
+											id="name"
+											name="name"
+											placeholder="Your name"
+											value={userData.name}
+											onChange={handleInput}
+											required
+											autoFocus
+										/>
+										<div className="valid-feedback">Looks good!</div>
+									</div>
+									<div className="mb-3">
+										<label className="form-label" htmlFor="username">
 											Username
 										</label>
 										<input
@@ -63,6 +75,7 @@ const Register = () => {
 											type="text"
 											id="username"
 											name="username"
+											placeholder="Your preferred username"
 											value={userData.username}
 											onChange={handleInput}
 											required
@@ -79,6 +92,7 @@ const Register = () => {
 											type="email"
 											id="email"
 											name="email"
+											placeholder="Your email"
 											value={userData.email}
 											onChange={handleInput}
 											required
@@ -94,6 +108,7 @@ const Register = () => {
 											type="password"
 											id="password"
 											name="password"
+											placeholder="Enter a strong password"
 											value={userData.password}
 											onChange={handleInput}
 											required
