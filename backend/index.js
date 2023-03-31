@@ -53,7 +53,7 @@ app.use((err, req, res, next) => {
 	if (!err.message) err.message = "Oh no, something went wrong. :(";
 	if (!err.status) err.status = 500;
 
-	res.status(err.status).send("Some error occurred");
+	res.status(err.status).send("ERROR: " + err.message);
 });
 
 app.listen(PORT, function () {
