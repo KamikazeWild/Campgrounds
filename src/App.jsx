@@ -11,6 +11,7 @@ import ViewCampground from "./components/campgrounds/ViewCampground";
 import NewCampground from "./components/campgrounds/NewCampground";
 import EditCampground from "./components/campgrounds/EditCampground";
 import Register from "./components/users/Register";
+import Login from "./components/users/Login";
 
 function App() {
 	return (
@@ -27,6 +28,7 @@ function App() {
 
 						{/* Users */}
 						<Route path="/register" element={<Register />} />
+						<Route path="/login" element={<Login />} />
 					</Routes>
 				</BrowserRouter>
 			</Container>
