@@ -23,9 +23,7 @@ const Campground = ({ camp }) => {
 							<CCardTitle>{camp.title}</CCardTitle>
 							<CCardText>{camp.description}</CCardText>
 							<CCardText>
-								<small className="text-medium-emphasis">
-									Last updated 3 mins ago
-								</small>
+								<small className="text-medium-emphasis">{camp.location}</small>
 							</CCardText>
 						</CCardBody>
 						<a
