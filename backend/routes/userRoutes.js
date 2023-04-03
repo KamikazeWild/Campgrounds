@@ -7,22 +7,6 @@ const router = express.Router();
 
 router.post("/register", catchAsync(users.register));
 
-router.post("/login", (req, res, next) => {
-	passport.authenticate("local", (e, user, info) => {
-		// if (e) return next(e);
-		if (info)
-			return res.json({
-				message: `${info.message}. Please try again`,
-			});
-		req.logIn(user, (e) => {
-			if (e) {
-				res
-					.status(422)
-					.json({ message: `Something went wrong: ${e}. Please try again` });
-			}
-			return res.send({ user });
-		});
-	})(req, res, next);
-});
+router.post("/login", users.login);
 
 module.exports = router;

@@ -1,4 +1,5 @@
 const User = require("../models/users");
+const passport = require("passport");
 
 module.exports.register = async (req, res) => {
 	const { name, username, email, password } = req.body;
@@ -17,6 +18,32 @@ module.exports.register = async (req, res) => {
 	}
 };
 
-module.exports.login = (req, res) => {
-	// Login code in userRoutes
+module.exports.login = async (req, res, next) => {
+	const { username } = req.body;
+	const user = await User.findOne({ username: username });
+	// console.log(user);
+
+	passport.authenticate("local", (e, user, info) => {
+		// if (e) return next(e);
+		if (info)
+			return res.json({
+				message: `${info.message}. Please try again`,
+			});
+		req.logIn(user, async (e) => {
+			if (e) {
+				res
+					.status(422)
+					.json({ message: `Something went wrong: ${e}. Please try again` });
+			}
+
+			const token = await user.generateAuthToken();
+			// console.log(token);
+			res.cookie("jwtoken", token, {
+				expires: new Date(Date.now() + 1728000000),
+				httpOnly: true,
+				sameSite: "none",
+			});
+			return res.send({ user });
+		});
+	})(req, res, next);
 };

@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const expressError = require("./utils/expressError");
 
@@ -17,14 +18,16 @@ const User = require("./models/users");
 const passport = require("passport");
 
 app.use(express.json());
-app.use(cors()); // allow cross origin resource sharing between frontend and backend
+app.use(cors({ origin: "http://localhost:5173", credentials: true })); // allow cross origin resource sharing between frontend and backend
 app.use(
 	session({
+		name: "session",
 		secret: process.env.SESSION_SECRET,
 		resave: false,
 		saveUninitialized: true,
 	})
 );
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(passport.initialize());
 
 // configure passport
