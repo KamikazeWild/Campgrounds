@@ -18,7 +18,7 @@ const User = require("./models/users");
 const passport = require("passport");
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173", credentials: true })); // allow cross origin resource sharing between frontend and backend
+app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true })); // allow cross origin resource sharing between frontend and backend
 app.use(
 	session({
 		name: "session",
@@ -40,6 +40,7 @@ mongoose.connect(process.env.DB_URL, {
 	useNewUrlParser: true,
 });
 const connection = mongoose.connection;
+
 connection.once("open", function () {
 	console.log("Connection with MongoDB Atlas successful");
 });

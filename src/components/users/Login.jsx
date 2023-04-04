@@ -18,7 +18,7 @@ const Login = () => {
 
 		const { username, password } = credentials;
 
-		const res = await fetch("http://localhost:4000/login", {
+		const res = await fetch("/api/login", {
 			method: "POST",
 			credentials: "include",
 			headers: {

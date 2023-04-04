@@ -7,7 +7,7 @@ const EditCampground = () => {
 	const navigate = useNavigate();
 
 	const getCampground = async () => {
-		const res = await fetch(`http://localhost:4000/campgrounds/${id}`);
+		const res = await fetch(`/api/campgrounds/${id}`);
 		const data = await res.json();
 		// console.log(data);
 		setCampData(data);
@@ -21,7 +21,7 @@ const EditCampground = () => {
 		e.preventDefault();
 
 		const { title, description, location, price } = campData;
-		const res = await fetch(`http://localhost:4000/campgrounds/${id}/edit`, {
+		const res = await fetch(`/api/campgrounds/${id}/edit`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
@@ -45,6 +45,10 @@ const EditCampground = () => {
 
 	useEffect(() => {
 		getCampground();
+
+		return () => {
+			console.log('unmounted')
+		}
 	}, []);
 
 	return (

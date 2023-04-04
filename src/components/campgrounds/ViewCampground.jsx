@@ -17,7 +17,7 @@ const ViewCampground = () => {
 	const [zoom, setZoom] = useState(9);
 
 	const getCampground = async () => {
-		const res = await fetch(`http://localhost:4000/campgrounds/${id}`);
+		const res = await fetch(`/api/campgrounds/${id}`);
 		const data = await res.json();
 		setCamp(data);
 		// console.log({ data });
@@ -26,7 +26,7 @@ const ViewCampground = () => {
 	const deleteCampground = async (e) => {
 		e.preventDefault();
 
-		const res = await fetch(`http://localhost:4000/campgrounds/${id}/`, {
+		const res = await fetch(`/api/campgrounds/${id}/`, {
 			method: "DELETE",
 		});
 

@@ -18,7 +18,7 @@ const NewCampground = () => {
 		e.preventDefault();
 
 		const { title, location, description, price } = campData;
-		const res = await fetch("http://localhost:4000/campgrounds", {
+		const res = await fetch("/api/campgrounds", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
