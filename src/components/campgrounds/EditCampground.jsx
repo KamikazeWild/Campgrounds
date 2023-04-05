@@ -45,10 +45,6 @@ const EditCampground = () => {
 
 	useEffect(() => {
 		getCampground();
-
-		return () => {
-			console.log('unmounted')
-		}
 	}, []);
 
 	return (
