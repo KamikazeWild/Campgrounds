@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const NewCampground = () => {
@@ -8,7 +8,29 @@ const NewCampground = () => {
 		description: "",
 		price: "",
 	});
+	const [userLoggedIn, setUserLoggedIn] = useState(false);
 	const navigate = useNavigate();
+
+	// Check whether the user is logged in or not
+	async function isLoggedIn() {
+		const res = await fetch("api/campgrounds/new");
+		const data = await res.json();
+		// console.log(data);
+
+		if (data.isLoggedIn) {
+			setUserLoggedIn(true);
+			// window.alert("Please login first.");
+			// navigate("/login");
+		}
+
+		if (!res.status === 200) {
+			throw new Error("Something went wrong. Please try again.");
+		}
+	}
+
+	useEffect(() => {
+		isLoggedIn();
+	}, []);
 
 	const handleInputs = (e) => {
 		setCampData({ ...campData, [e.target.name]: e.target.value });
@@ -44,92 +66,100 @@ const NewCampground = () => {
 		<div className="row mb-5">
 			<h1 className="text-center">New Campground</h1>
 			<div className="col-6 offset-3">
-				<form
-					method="POST"
-					noValidate
-					className="validate-form"
-					encType="multipart/form-data"
-				>
-					{/* Title */}
-					<div>
-						<label className="form-label" htmlFor="title">
-							Title
-						</label>
-						<input
-							className="form-control mb-2 border-3"
-							type="text"
-							value={campData.title}
-							onChange={handleInputs}
-							id="title"
-							name="title"
-							placeholder="Enter title"
-							required
-						/>
-					</div>
-
-					{/* Location */}
-					<div>
-						<label className="form-label" htmlFor="location">
-							Location
-						</label>
-						<input
-							className="form-control mb-2 border-3"
-							type="text"
-							value={campData.location}
-							onChange={handleInputs}
-							id="location"
-							name="location"
-							placeholder="Enter location"
-							required
-						/>
-					</div>
-
-					{/* Description */}
-					<div>
-						<label className="form-label" htmlFor="description">
-							Description
-						</label>
-						<textarea
-							className="form-control mb-2 border-3"
-							type="text"
-							value={campData.description}
-							onChange={handleInputs}
-							id="description"
-							name="description"
-							placeholder="Enter description"
-							required
-						/>
-					</div>
-
-					{/* Price */}
-					<div className="mb-2">
-						<label className="form-label" htmlFor="price">
-							Price
-						</label>
-						<div className="input-group mb-3">
-							<span className="input-group-text">$</span>
+				{userLoggedIn ? ( // If a user is logged in, render the form.
+					<form
+						method="POST"
+						noValidate
+						className="validate-form"
+						encType="multipart/form-data"
+					>
+						{/* Title */}
+						<div>
+							<label className="form-label" htmlFor="title">
+								Title
+							</label>
 							<input
+								className="form-control mb-2 border-3"
 								type="text"
-								id="price"
-								value={campData.price}
+								value={campData.title}
 								onChange={handleInputs}
-								step="0.01"
-								className="form-control border-3"
-								placeholder="0.00"
-								name="price"
-								aria-label="Amount (to the nearest dollar)"
+								id="title"
+								name="title"
+								placeholder="Enter title"
 								required
 							/>
 						</div>
-					</div>
 
-					<button className="btn btn-primary" onClick={(e) => postData(e)}>
-						Add campground
-					</button>
-					<a className="btn btn-danger ms-3" href="/campgrounds">
-						Cancel
-					</a>
-				</form>
+						{/* Location */}
+						<div>
+							<label className="form-label" htmlFor="location">
+								Location
+							</label>
+							<input
+								className="form-control mb-2 border-3"
+								type="text"
+								value={campData.location}
+								onChange={handleInputs}
+								id="location"
+								name="location"
+								placeholder="Enter location"
+								required
+							/>
+						</div>
+
+						{/* Description */}
+						<div>
+							<label className="form-label" htmlFor="description">
+								Description
+							</label>
+							<textarea
+								className="form-control mb-2 border-3"
+								type="text"
+								value={campData.description}
+								onChange={handleInputs}
+								id="description"
+								name="description"
+								placeholder="Enter description"
+								required
+							/>
+						</div>
+
+						{/* Price */}
+						<div className="mb-2">
+							<label className="form-label" htmlFor="price">
+								Price
+							</label>
+							<div className="input-group mb-3">
+								<span className="input-group-text">$</span>
+								<input
+									type="text"
+									id="price"
+									value={campData.price}
+									onChange={handleInputs}
+									step="0.01"
+									className="form-control border-3"
+									placeholder="0.00"
+									name="price"
+									aria-label="Amount (to the nearest dollar)"
+									required
+								/>
+							</div>
+						</div>
+
+						<button className="btn btn-primary" onClick={(e) => postData(e)}>
+							Add campground
+						</button>
+						<a className="btn btn-danger ms-3" href="/campgrounds">
+							Cancel
+						</a>
+					</form>
+				) : (
+					// Render this if no user is logged in.
+					<p className="text-center">
+						You need to log in to create a new campground. Log in{" "}
+						<a href="/login">here</a>
+					</p>
+				)}
 			</div>
 		</div>
 	);
