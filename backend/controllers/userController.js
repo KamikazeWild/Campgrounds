@@ -47,3 +47,8 @@ module.exports.login = async (req, res, next) => {
 		});
 	})(req, res, next);
 };
+
+module.exports.logout = async (req, res) => {
+	res.clearCookie("jwtoken");
+	res.send("User logged out sucessfully.");
+};

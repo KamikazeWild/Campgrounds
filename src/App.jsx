@@ -12,6 +12,7 @@ import NewCampground from "./components/campgrounds/NewCampground";
 import EditCampground from "./components/campgrounds/EditCampground";
 import Register from "./components/users/Register";
 import Login from "./components/users/Login";
+import Logout from "./components/users/Logout";
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 						{/* Users */}
 						<Route path="/register" element={<Register />} />
 						<Route path="/login" element={<Login />} />
+						<Route path="/logout" element={<Logout />} />
 					</Routes>
 				</BrowserRouter>
 			</Container>

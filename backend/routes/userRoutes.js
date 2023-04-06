@@ -8,4 +8,6 @@ router.post("/register", catchAsync(users.register));
 
 router.post("/login", users.login);
 
+router.get("/logout", users.logout);
+
 module.exports = router;
