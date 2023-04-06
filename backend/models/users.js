@@ -30,6 +30,7 @@ const userSchema = new Schema({
 });
 userSchema.plugin(passportLocalMongoose);
 
+// Custom schema methods
 userSchema.methods.generateAuthToken = async function () {
 	try {
 		let token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET);

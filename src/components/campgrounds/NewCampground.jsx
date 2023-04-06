@@ -17,15 +17,11 @@ const NewCampground = () => {
 		const data = await res.json();
 		// console.log(data);
 
-		if (data.isLoggedIn) {
-			setUserLoggedIn(true);
-			// window.alert("Please login first.");
-			// navigate("/login");
-		}
-
-		if (!res.status === 200) {
+		if (!res.status === 200 || !data) {
 			throw new Error("Something went wrong. Please try again.");
 		}
+
+		setUserLoggedIn(data.isLoggedIn);
 	}
 
 	useEffect(() => {
@@ -42,6 +38,7 @@ const NewCampground = () => {
 		const { title, location, description, price } = campData;
 		const res = await fetch("/api/campgrounds", {
 			method: "POST",
+			credentials: "include",
 			headers: {
 				"Content-Type": "application/json",
 			},

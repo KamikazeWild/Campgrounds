@@ -6,7 +6,8 @@ const campgrounds = require("../controllers/campgroundController"); // controlle
 const catchAsync = require("../utils/catchAsync");
 
 router.get("/", catchAsync(campgrounds.index)); // get all campgrounds
-router.get("/new", authenticate, (req, res) => { // user authorization before creating new campgrounds
+router.get("/new", authenticate, (req, res) => {
+	// user authorization before creating new campgrounds
 	res.json({ isLoggedIn: req.isLoggedIn, rootUser: req.rootUser });
 });
 router.get("/:id", catchAsync(campgrounds.viewCampground)); // view particular campground

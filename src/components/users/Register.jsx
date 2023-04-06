@@ -123,6 +123,12 @@ const Register = () => {
 											Register
 										</button>
 									</div>
+									<div className="my-2">
+										Already a user?{" "}
+										<a href="/login" className="d-">
+											Login now
+										</a>
+									</div>
 								</form>
 							</div>
 						</div>

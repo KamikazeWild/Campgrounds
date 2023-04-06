@@ -73,7 +73,6 @@ const Login = () => {
 										/>
 										<div className="valid-feedback">Looks good!</div>
 									</div>
-
 									<div className="mb-3">
 										<label className="form-label" htmlFor="password">
 											Password
@@ -94,6 +93,12 @@ const Login = () => {
 										<button className="btn btn-success" onClick={postData}>
 											Login
 										</button>
+									</div>
+									<div className="my-2">
+										Not a user?{" "}
+										<a href="/register" className="d-">
+											Register now
+										</a>
 									</div>
 								</form>
 							</div>
