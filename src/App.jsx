@@ -16,7 +16,7 @@ import Login from "./components/users/Login";
 import Logout from "./components/users/Logout";
 
 function App() {
-	const [userLoggedIn, setUserLoggedIn] = useState(false);
+	const [loggedInUser, setULoggedInUser] = useState(false);
 
 	// Check whether the user is logged in or not
 	async function isLoggedIn() {
@@ -28,7 +28,7 @@ function App() {
 			throw new Error("Something went wrong. Please try again.");
 		}
 
-		setUserLoggedIn(data.rootUser);
+		setULoggedInUser(data.rootUser);
 	}
 
 	useEffect(() => {
@@ -37,7 +37,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<Navbar userLoggedIn={userLoggedIn} />
+			<Navbar loggedInUser={loggedInUser} />
 			<Container>
 				<BrowserRouter>
 					<Routes>
@@ -46,7 +46,7 @@ function App() {
 						<Route path="/campgrounds/:id" element={<ViewCampground />} />
 						<Route
 							path="/new"
-							element={<NewCampground userLoggedIn={userLoggedIn} />}
+							element={<NewCampground loggedInUser={loggedInUser} />}
 						/>
 						<Route path="/campgrounds/:id/edit" element={<EditCampground />} />
 

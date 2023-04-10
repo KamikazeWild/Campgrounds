@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
-const NavSticky = ({ userLoggedIn }) => {
+const NavSticky = ({ loggedInUser }) => {
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container>
@@ -15,7 +15,7 @@ const NavSticky = ({ userLoggedIn }) => {
 						<Nav.Link href="/new">New Campground</Nav.Link>
 					</Nav>
 					<Nav>
-						{userLoggedIn ? (
+						{loggedInUser ? (
 							<Nav.Link href="/logout">Logout</Nav.Link>
 						) : (
 							<>

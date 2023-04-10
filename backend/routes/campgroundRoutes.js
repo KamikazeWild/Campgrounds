@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const authenticate = require("../mddlewares/authenticate");
 
 const campgrounds = require("../controllers/campgroundController"); // controller
 const catchAsync = require("../utils/catchAsync");

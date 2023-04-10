@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewCampground = ({ userLoggedIn }) => {
+const NewCampground = ({ loggedInUser }) => {
 	const [campData, setCampData] = useState({
 		title: "",
 		location: "",
@@ -45,7 +45,7 @@ const NewCampground = ({ userLoggedIn }) => {
 		<div className="row mb-5">
 			<h1 className="text-center">New Campground</h1>
 			<div className="col-6 offset-3">
-				{userLoggedIn ? ( // If a user is logged in, render the form.
+				{loggedInUser ? ( // If a user is logged in, render the form.
 					<form
 						method="POST"
 						noValidate
