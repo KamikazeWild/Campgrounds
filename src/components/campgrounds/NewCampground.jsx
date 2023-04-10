@@ -1,32 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const NewCampground = () => {
+const NewCampground = ({ userLoggedIn }) => {
 	const [campData, setCampData] = useState({
 		title: "",
 		location: "",
 		description: "",
 		price: "",
 	});
-	const [userLoggedIn, setUserLoggedIn] = useState(false);
 	const navigate = useNavigate();
-
-	// Check whether the user is logged in or not
-	async function isLoggedIn() {
-		const res = await fetch("api/campgrounds/new");
-		const data = await res.json();
-		// console.log(data);
-
-		if (!res.status === 200 || !data) {
-			throw new Error("Something went wrong. Please try again.");
-		}
-
-		setUserLoggedIn(data.isLoggedIn);
-	}
-
-	useEffect(() => {
-		isLoggedIn();
-	}, []);
 
 	const handleInputs = (e) => {
 		setCampData({ ...campData, [e.target.name]: e.target.value });

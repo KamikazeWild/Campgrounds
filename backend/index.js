@@ -16,6 +16,7 @@ const userRoutes = require("./routes/userRoutes");
 // passport
 const User = require("./models/users");
 const passport = require("passport");
+const authenticate = require("./mddlewares/authenticate");
 
 app.use(express.json());
 app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true })); // allow cross origin resource sharing between frontend and backend
@@ -46,6 +47,9 @@ connection.once("open", function () {
 });
 
 // routes
+app.get("/", authenticate, (req, res) => {
+	res.json({ isLoggedIn: req.isLoggedIn, rootUser: req.rootUser });
+});
 app.use("/campgrounds", campgroundRoutes);
 app.use("/", userRoutes);
 
